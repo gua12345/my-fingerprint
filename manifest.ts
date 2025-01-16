@@ -6,6 +6,7 @@ export const manifest: chrome.runtime.ManifestV3 = {
   version: '2.2.4',
   permissions: [
     'storage', 
+    'http://ip-api.com/',
     'tabs', 
     'activeTab', 
     'webNavigation', 

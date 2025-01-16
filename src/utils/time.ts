@@ -24,3 +24,26 @@ export const getStandardDateTimeParts = (date: Date, timezone?: string): TimePar
     return acc
   }, {})
 }
+
+// 添加获取时区信息的函数
+export async function getTimeZoneFromIP(): Promise<TimeZoneInfo> {
+  try {
+    const response = await fetch('http://ip-api.com/json/?fields=timezone,offset');
+    const data = await response.json();
+    
+    return {
+      text: data.timezone,
+      offset: data.offset / 3600, // 转换为小时
+      zone: data.timezone,
+      locale: navigator.language
+    };
+  } catch (error) {
+    // 如果获取失败，返回默认时区
+    return {
+      text: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      offset: -(new Date().getTimezoneOffset() / 60),
+      zone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      locale: navigator.language
+    };
+  }
+}

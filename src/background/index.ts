@@ -5,6 +5,7 @@ import { HookType, RuntimeMsg } from '@/types/enum'
 import { selectTabByHost, sendMessageToAllTags } from "@/utils/tabs";
 import { tabChangeWhitelist } from "@/message/tabs";
 import { genRandomVersionUserAgent, genRandomVersionUserAgentData } from "@/utils/equipment";
+import { getTimeZoneFromIP } from '../utils/time';
 
 // // @ts-ignore
 // import contentSrc from '@/scripts/content?script&module'
@@ -31,10 +32,12 @@ let newVersion: string | undefined
 /**
  * 生成默认配置
  */
-const genDefaultLocalStorage = (): LocalStorage => {
+const genDefaultLocalStorage = async (): Promise<LocalStorage> => {
   const manifest = chrome.runtime.getManifest()
   const defaultHook: DefaultHookMode = { type: HookType.default }
   const browserHook: BaseHookMode = { type: HookType.browser }
+  // 获取时区信息
+  const timezoneInfo = await getTimeZoneFromIP();
   return {
     version: manifest.version,
     config: {
@@ -44,17 +47,26 @@ const genDefaultLocalStorage = (): LocalStorage => {
       fingerprint: {
         navigator: {
           equipment: browserHook,
-          language: defaultHook,
-          hardwareConcurrency: defaultHook,
+          language: { 
+            type: HookType.value, 
+            value: 'en-US' 
+          },
+          hardwareConcurrency: { 
+            type: HookType.value, 
+            value: 12 
+          },
         },
         screen: {
-          height: defaultHook,
-          width: defaultHook,
-          colorDepth: defaultHook,
-          pixelDepth: defaultHook,
+          height: browserHook,
+          width: browserHook,
+          colorDepth: browserHook,
+          pixelDepth: browserHook,
         },
         other: {
-          timezone: defaultHook,
+          timezone: {
+            type: HookType.value,
+            value: timezoneInfo
+          },
           canvas: browserHook,
           audio: browserHook,
           webgl: browserHook,
@@ -69,6 +81,26 @@ const genDefaultLocalStorage = (): LocalStorage => {
   }
 }
 
+// 由于函数现在是异步的，需要修改初始化逻辑
+chrome.runtime.onInstalled.addListener(async () => {
+  const storage = await genDefaultLocalStorage();
+  await chrome.storage.local.set(storage);
+});
+
+// 每次启动浏览器时更新时区
+chrome.runtime.onStartup.addListener(async () => {
+  const timezoneInfo = await getTimeZoneFromIP();
+  const storage = await chrome.storage.local.get();
+  
+  if (storage.config?.fingerprint?.other?.timezone) {
+    storage.config.fingerprint.other.timezone = {
+      type: HookType.value,
+      value: timezoneInfo
+    };
+    await chrome.storage.local.set(storage);
+  }
+});
+
 /**
  * 初始化默认配置
  */
@@ -80,7 +112,7 @@ const initLocalConfig = debouncedAsync(async (previousVersion?: string) => {
   let storage: LocalStorage
   if (!data.version || compareVersions(previousVersion, '2.0.0') < 0) {
     await chrome.storage.local.clear()
-    storage = genDefaultLocalStorage()
+    storage = await genDefaultLocalStorage()
   } else {
     storage = deepmerge(genDefaultLocalStorage(), data)
     storage.config.browserSeed = genRandomSeed()
