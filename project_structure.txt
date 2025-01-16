@@ -1,0 +1,135 @@
+my-fingerprint
+├── .git/
+│    ├── config
+│    ├── description
+│    ├── HEAD
+│    ├── hooks/
+│    │    ├── applypatch-msg.sample
+│    │    ├── commit-msg.sample
+│    │    ├── fsmonitor-watchman.sample
+│    │    ├── post-update.sample
+│    │    ├── pre-applypatch.sample
+│    │    ├── pre-commit.sample
+│    │    ├── pre-merge-commit.sample
+│    │    ├── pre-push.sample
+│    │    ├── pre-rebase.sample
+│    │    ├── pre-receive.sample
+│    │    ├── prepare-commit-msg.sample
+│    │    ├── push-to-checkout.sample
+│    │    ├── sendemail-validate.sample
+│    │    └── update.sample
+│    ├── index
+│    ├── info/
+│    │    └── exclude
+│    ├── logs/
+│    │    ├── HEAD
+│    │    └── refs/
+│    │         ├── heads/
+│    │         │    └── main
+│    │         └── remotes/
+│    │              └── origin/
+│    │                   └── HEAD
+│    ├── objects/
+│    │    ├── info/
+│    │    └── pack/
+│    │         ├── pack-330784af433c31bb4f72e51e0f1ad0b5a42e0936.idx
+│    │         ├── pack-330784af433c31bb4f72e51e0f1ad0b5a42e0936.pack
+│    │         └── pack-330784af433c31bb4f72e51e0f1ad0b5a42e0936.rev
+│    ├── packed-refs
+│    └── refs/
+│         ├── heads/
+│         │    └── main
+│         ├── remotes/
+│         │    └── origin/
+│         │         └── HEAD
+│         └── tags/
+├── .gitignore
+├── images/
+│    ├── en/
+│    │    └── ui.png
+│    ├── wechat-code.png
+│    └── zh/
+│         └── ui.png
+├── LICENSE
+├── manifest.ts
+├── package-lock.json
+├── package.json
+├── plugins/
+│    └── core-bundle.ts
+├── postcss.config.js
+├── Project_directory_generator.exe
+├── project_structure.txt
+├── public/
+│    ├── logo-gray.png
+│    └── logo.png
+├── README.md
+├── README_EN.md
+├── src/
+│    ├── background/
+│    │    └── index.ts
+│    ├── components/
+│    │    └── data/
+│    │         └── highlight.tsx
+│    ├── core/
+│    │    ├── .gitignore
+│    │    ├── core.ts
+│    │    ├── index.ts
+│    │    ├── output.d.ts
+│    │    ├── tasks.ts
+│    │    └── utils.ts
+│    ├── locales/
+│    │    ├── en_US.json
+│    │    ├── index.ts
+│    │    └── zh_CN.json
+│    ├── message/
+│    │    ├── content.ts
+│    │    ├── runtime.ts
+│    │    └── tabs.ts
+│    ├── popup/
+│    │    ├── App.tsx
+│    │    ├── f-config/
+│    │    │    ├── base.tsx
+│    │    │    ├── index.tsx
+│    │    │    ├── item/
+│    │    │    │    ├── base.tsx
+│    │    │    │    ├── timezone.tsx
+│    │    │    │    ├── work-select.tsx
+│    │    │    │    └── work.tsx
+│    │    │    ├── other.tsx
+│    │    │    └── special.tsx
+│    │    ├── f-record/
+│    │    │    └── index.tsx
+│    │    ├── index.css
+│    │    ├── index.html
+│    │    ├── main.tsx
+│    │    └── whitelist/
+│    │         ├── index.tsx
+│    │         └── item.tsx
+│    ├── scripts/
+│    │    └── content.ts
+│    ├── types/
+│    │    ├── base.d.ts
+│    │    ├── data.d.ts
+│    │    ├── enum.ts
+│    │    ├── message.d.ts
+│    │    └── storage.d.ts
+│    ├── utils/
+│    │    ├── base.ts
+│    │    ├── data.ts
+│    │    ├── equipment.ts
+│    │    ├── hooks.ts
+│    │    ├── tabs.ts
+│    │    ├── time.ts
+│    │    └── timer.ts
+│    └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+
+说明：
+1. ├── 表示非最后项
+2. └── 表示最后一项
+3. │   表示垂直连接线
+4. 目录后面加 / 标识
+5. 本文件由目录结构生成器自动生成
