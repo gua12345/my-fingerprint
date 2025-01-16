@@ -1,1 +1,1 @@
-export const coreInject: (_tid: number, _local: LocalStorage) => void
+export declare const coreInject: (_tid: number, _local: LocalStorage) => void;
